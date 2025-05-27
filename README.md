@@ -67,8 +67,8 @@ chatbot/
 ## 1. Clone & Prepare
 
 ```
-git clone https://github.com/yourusername/ai-pdf-chatbot.git
-cd ai-pdf-chatbot
+git clone https://github.com/townbox01/AI-CHATBOT.git
+cd AI-CHATBOT
 ```
 
 ## 2. 📦 Step 2: Set Up the Backend (FastAPI)
@@ -144,7 +144,7 @@ chatbot/
 
 ```
 
-git clone https://github.com/your-username/chatbot.git
+git clone https://github.com/townbox01/AI-CHATBOT.git
 cd chatbot
 ```
 
@@ -209,10 +209,6 @@ What's the weather?
 ## 💡 Future Improvements
 
 - Multi-document support
-
-- Docker-based deployment
-
-- Cloud hosting (AWS/GCP)
 
 - Streamed GPT responses
 
