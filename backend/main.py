@@ -285,6 +285,7 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from rag_chain import qa_chain, llm, update_retriever
 from vectorstore import load_and_embed_documents
+from memory import get_memory
 
 app = FastAPI()
 
@@ -358,7 +359,7 @@ async def chat(request: Request):
                 # Use QA Chain
                 result = qa_chain.invoke({
                     "question": message,
-                    "chat_history": []
+                    # "chat_history": []
                 })
                 answer = result["answer"]
         else:
