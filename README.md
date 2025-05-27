@@ -1,7 +1,7 @@
 # 🧠 AI-Powered Document-Aware Conversational Chatbot
 
 This project is a conversational chatbot built with FastAPI. It combines OpenAI’s language model with a PDF document retriever to answer user queries based on the document content and also general knowledge. It supports conversational memory to maintain context across chat interactions. The frontend serves a simple web chat UI.
-it understands and answers questions based on uploaded PDF documents using **LangChain**, **OpenAI GPT-4**, and **FAISS** for semantic search. if question asked is not in document context, alls back to OpenAI's GPT to respond intelligently even without document context.
+it understands and answers questions based on uploaded PDF documents using **LangChain**, **OpenAI GPT-4**, and **FAISS** for semantic search. if question asked is not in document context, it falls back to OpenAI's GPT to respond intelligently even without document context.
 
 ![Chatbot Demo](https://d2vrvpw63099lz.cloudfront.net/chatbots-pillar-post/chatbot-pillar.png)
 
