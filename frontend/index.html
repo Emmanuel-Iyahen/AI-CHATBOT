@@ -34,7 +34,7 @@
       <h2>🤖 AI Chatbot</h2>
     </header>
 
-    <p style="text-align: center; justify-content: center;">Ask me Questions on <span id="topic-display"></span></p>
+    <p style="text-align: center; justify-content: center;">Ask me Questions about <span id="topic-display"></span></p>
 
     <main id="chat-box" class="chat-box"></main>
 
@@ -48,7 +48,6 @@
     // Get topic from localStorage
     const topic = localStorage.getItem('chatbot_topic');
 
-    alert(topic);
 
     // Display it in the page
     document.getElementById('topic-display').textContent = topic || 'No topic selected';

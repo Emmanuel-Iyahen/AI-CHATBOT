@@ -97,21 +97,39 @@ async function sendMessage() {
   }
 }
 
+// function appendMessage(sender, text, isLoading = false) {
+//   const chatBox = document.getElementById("chat-box");
+//   const msgDiv = document.createElement("div");
+//   const id = `msg-${Date.now()}`;
+
+//   msgDiv.className = sender === "user" ? "user-message" : "bot-message";
+//   msgDiv.id = id;
+//   // msgDiv.innerHTML = isLoading ? `<span class="typing-dots"></span>` : text;
+//   msgDiv.innerHTML = isLoading ? `<span class="typing-dots"><span></span></span>` : text;
+
+//   chatBox.appendChild(msgDiv);
+//   chatBox.scrollTop = chatBox.scrollHeight;
+
+//   return id; // return ID for future update
+// }
+
 function appendMessage(sender, text, isLoading = false) {
   const chatBox = document.getElementById("chat-box");
   const msgDiv = document.createElement("div");
-  const id = `msg-${Date.now()}`;
+
+  // Create a more unique ID using sender + timestamp + random value
+  const id = `msg-${sender}-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
   msgDiv.className = sender === "user" ? "user-message" : "bot-message";
   msgDiv.id = id;
-  // msgDiv.innerHTML = isLoading ? `<span class="typing-dots"></span>` : text;
   msgDiv.innerHTML = isLoading ? `<span class="typing-dots"><span></span></span>` : text;
 
   chatBox.appendChild(msgDiv);
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  return id; // return ID for future update
+  return id;
 }
+
 
 function updateMessage(id, newText) {
   const msg = document.getElementById(id);
