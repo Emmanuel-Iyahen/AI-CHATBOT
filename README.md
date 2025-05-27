@@ -104,7 +104,86 @@ Your backend is now running at http://localhost:8000.
 
 #
 
-## 🧪 Demo Example
+# 🐳 Run the Project with Docker Compose
+
+You can easily spin up the chatbot with both the frontend and backend using Docker Compose.
+
+## 📁 Project Structure
+
+```
+chatbot/
+├── backend/
+│   ├── Dockerfile
+│   ├── main.py
+│   ├── rag_chain.py
+│   ├── vectorstore.py
+│   ├── memory.py
+│   ├── requirements.txt
+│   └── docs/
+├── frontend/
+│   ├── Dockerfile
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── docker-compose.yml
+└── README.md
+```
+
+#
+
+### 🛠️ Prerequisites
+
+- Docker: Install Docker
+
+- Docker Compose: Already included with Docker Desktop
+
+# 🚀 Steps to Run the App
+
+## Step 1 – Clone the Repository
+
+```
+
+git clone https://github.com/your-username/chatbot.git
+cd chatbot
+```
+
+## Step 2 – Add Your OpenAI API Key
+
+Create a .env file in the backend/ directory and place your openapi key:
+
+```
+OPENAI_API_KEY=your-openai-api-key
+```
+
+## Step 3 – Build and Run with Docker Compose
+
+```
+docker-compose up --build
+```
+
+This command:
+
+- Builds both backend and frontend Docker images
+
+- Launches both containers and connects them together
+
+## Step 4 – Access the App
+
+🌐 Visit: http://localhost:9000 (as specified in docker-compose file or you can change port to your convenience)
+
+The frontend UI will load, and you can upload a pdf containing context and start chatting with the AI assistant.
+
+## 🧼 Stopping and Cleaning Up
+
+```
+docker-compose down
+```
+
+## 🧪 Demo
+
+## 🎥 Demo
+
+![Chatbot Demo](./chatdemo.gif)
 
 ### 🗂 Upload a PDF
 
@@ -145,3 +224,5 @@ What's the weather?
 ## 🙌 Acknowledgements
 
 Huge thanks to the open-source community and the LangChain team!
+
+![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-blueviolet)
