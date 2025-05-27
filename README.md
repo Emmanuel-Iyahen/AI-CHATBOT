@@ -179,8 +179,6 @@ The frontend UI will load, and you can upload a pdf containing context and start
 docker-compose down
 ```
 
-## 🧪 Demo
-
 ## 🎥 Demo
 
 ![Chatbot Demo](./chatdemo.gif)
