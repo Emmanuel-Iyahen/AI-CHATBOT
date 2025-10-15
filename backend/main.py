@@ -1,153 +1,3 @@
-# from fastapi import FastAPI, Request
-# from pydantic import BaseModel
-# from rag_chain import qa_chain
-
-# app = FastAPI()
-
-# class ChatRequest(BaseModel):
-#     message: str
-
-# @app.post("/chat")
-# async def chat(req: ChatRequest):
-#     user_message = req.message
-#     response = qa_chain.run(user_message)
-#     return {"response": response}
-
-
-
-# from fastapi import FastAPI, Request
-# from fastapi.middleware.cors import CORSMiddleware
-# from rag_chain import qa_chain
-# from fastapi.responses import JSONResponse
-
-
-# app = FastAPI()
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],  # Adjust this in production
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
-# @app.post("/chat")
-# async def chat(request: Request):
-#     body = await request.json()
-#     message = body.get("message")
-
-#     try:
-#         result = qa_chain.run({
-#             "question": message,
-#             "chat_history": []
-#         })
-#         return {"response": result}
-#     except Exception as e:
-#         print("❌ ERROR:", str(e))
-#         return JSONResponse(status_code=500, content={"error": str(e)})
-
-
-
-
-
-# from fastapi import FastAPI, Request
-# from fastapi.middleware.cors import CORSMiddleware
-# from fastapi.responses import JSONResponse
-# from rag_chain import qa_chain, retriever  # assuming retriever is imported here
-# from langchain_community.chat_models import ChatOpenAI
-
-# app = FastAPI()
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],  # Change in production!
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
-# chat_history = []
-
-# @app.post("/chat")
-# async def chat(request: Request):
-#     body = await request.json()
-#     message = body.get("message")
-
-#     try:
-#         # Retrieve relevant docs from the PDF retriever
-#         docs = retriever.get_relevant_documents(message)
-
-#         # Check if retrieved docs have meaningful content
-#         if docs and sum(len(doc.page_content) for doc in docs) > 20:
-#             # Use ConversationalRetrievalChain with context from PDF
-#             result = qa_chain.invoke({
-#                 "question": message,
-#                 "chat_history": chat_history
-#             })
-#             answer = result["answer"]
-#         else:
-#             # No relevant context found, fallback to direct OpenAI answer
-#             llm = ChatOpenAI(temperature=0)
-#             answer = llm.predict(message)
-
-#         # Update chat history
-#         chat_history.append((message, answer))
-
-#         return {"response": answer}
-
-#     except Exception as e:
-#         print("❌ ERROR:", str(e))
-#         return JSONResponse(status_code=500, content={"error": str(e)})
-
-
-
-
-
-# from fastapi import FastAPI, Request, Depends
-# from fastapi.middleware.cors import CORSMiddleware
-# from fastapi.responses import JSONResponse
-# from rag_chain import qa_chain, retriever
-# from langchain_community.chat_models import ChatOpenAI
-
-# app = FastAPI()
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-
-# llm = ChatOpenAI(temperature=0)
-
-# # Simple per-request chat history (in real apps use DB/session store)
-# def get_chat_history():
-#     return []
-
-# @app.post("/chat")
-# async def chat(request: Request, chat_history = Depends(get_chat_history)):
-#     body = await request.json()
-#     message = body.get("message")
-
-#     try:
-#         docs = retriever.get_relevant_documents(message)
-#         if docs and sum(len(doc.page_content) for doc in docs) > 20:
-#             result = qa_chain.invoke({
-#                 "question": message,
-#                 "chat_history": chat_history
-#             })
-#             answer = result["answer"]
-#         else:
-#             answer = llm.predict(message)
-
-#         chat_history.append((message, answer))
-
-#         return {"response": answer}
-#     except Exception as e:
-#         print("❌ ERROR:", str(e))
-#         return JSONResponse(status_code=500, content={"error": str(e)})
-
 
 from fastapi import FastAPI, Request, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
@@ -168,114 +18,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# @app.post("/chat")
-# async def chat(request: Request):
-#     body = await request.json()
-#     message = body.get("message")
-
-#     try:
-#         # Fetch relevant documents for this query
-#         docs = retriever.get_relevant_documents(message)
-
-#         if docs and sum(len(doc.page_content) for doc in docs) > 20:
-#             # Use QA chain with internal memory — NO manual chat_history passing
-#             answer = qa_chain.run(message)
-#         else:
-#             # No relevant context found, fallback to pure LLM answer
-#             answer = llm.predict(message)
-
-#         return {"response": answer}
-
-#     except Exception as e:
-#         print("❌ ERROR:", str(e))
-#         return JSONResponse(status_code=500, content={"error": str(e)})
-
-
-
-# @app.post("/chat")
-# async def chat(request: Request):
-#     body = await request.json()
-#     message = body.get("message")
-
-#     try:
-#         docs = retriever.get_relevant_documents(message)
-
-#         if docs and sum(len(doc.page_content) for doc in docs) > 20:
-#             answer = qa_chain.run(message)
-
-#             # If answer contains "no mention" or "I don't have information" phrases, fallback
-#             no_info_phrases = [
-#                 "no mention",
-#                 "don't have information",
-#                 "don't have enough information",
-#                 "no relevant",
-#                 "cannot provide",
-#                 "sorry"
-#             ]
-
-#             if any(phrase.lower() in answer.lower() for phrase in no_info_phrases):
-#                 answer = llm.predict(message)
-
-#         else:
-#             answer = llm.predict(message)
-
-#         return {"response": answer}
-
-#     except Exception as e:
-#         print("❌ ERROR:", str(e))
-#         return JSONResponse(status_code=500, content={"error": str(e)})
-
-
-
-# UPLOAD_DIR = "uploads"
-# os.makedirs(UPLOAD_DIR, exist_ok=True)
-
-# @app.post("/upload_pdf/")
-# async def upload_pdf(title: str = Form(...), file: UploadFile = File(...)):
-#     # Save uploaded PDF file
-#     file_location = os.path.join(UPLOAD_DIR, f"{title}.pdf")
-#     with open(file_location, "wb") as f:
-#         content = await file.read()
-#         f.write(content)
-
-#     # Load and embed the new PDF document
-#     retriever = load_and_embed_documents(file_location)
-
-#     # Update the retriever in the global qa_chain instance
-#     update_retriever(retriever)
-
-#     return {"message": f"PDF for '{title}' uploaded and retriever updated."}
-
-
-# @app.post("/chat")
-# async def chat(request: Request):
-#     body = await request.json()
-#     message = body.get("message")
-
-#     try:
-#         docs = retriever.get_relevant_documents(message)
-#         total_content = " ".join(doc.page_content.lower() for doc in docs)
-
-#         if docs and sum(len(doc.page_content) for doc in docs) > 20:
-#             # If the retrieved docs do not mention the keyword exactly, fallback
-#             if message not in total_content:
-#                 answer = llm.predict(message)
-#             else:
-#                 result = qa_chain.invoke({
-#                     "question": message,
-#                     "chat_history": []
-#                 })
-#                 answer = result["answer"]
-#         else:
-#             answer = llm.predict(message)
-
-#         return {"response": answer}
-
-#     except Exception as e:
-#         print("❌ ERROR:", str(e))
-#         return JSONResponse(status_code=500, content={"error": str(e)})
-
 
 
 
@@ -305,11 +47,24 @@ app.add_middleware(
 @app.post("/upload_pdf/")
 async def upload_pdf(title: str = Form(...), file: UploadFile = File(...)):
     try:
-        # Save uploaded PDF file
+
+
+        # Save the file in chunks (1 MB at a time)
         file_location = os.path.join(UPLOAD_DIR, f"{title}.pdf")
         with open(file_location, "wb") as f:
-            content = await file.read()
-            f.write(content)
+            while True:
+                chunk = await file.read(1024 * 1024)  # 1MB
+                if not chunk:
+                    break
+                f.write(chunk)
+
+
+
+        # Save uploaded PDF file
+        # file_location = os.path.join(UPLOAD_DIR, f"{title}.pdf")
+        # with open(file_location, "wb") as f:
+        #     content = await file.read()
+        #     f.write(content)
 
         # Load and embed the new PDF document
         retriever = load_and_embed_documents(file_location)
@@ -376,43 +131,6 @@ async def chat(request: Request):
 
 
 
-#works partially
-
-# @app.post("/chat")
-# async def chat(request: Request):
-#     try:
-#         body = await request.json()
-#         message = body.get("message")
-
-#         if not message:
-#             return JSONResponse(status_code=400, content={"error": "Message is required"})
-
-#         # Retrieve relevant documents
-#         docs = qa_chain.retriever.get_relevant_documents(message)
-
-#         if docs:
-#             total_content = " ".join(doc.page_content.lower() for doc in docs)
-
-#             # Fallback if question not semantically represented in retrieved docs
-#             if message.lower() not in total_content:
-#                 answer = llm.predict(message)
-#             else:
-#                 result = qa_chain.invoke({
-#                     "question": message,
-#                     "chat_history": []
-#                 })
-#                 answer = result["answer"]
-#         else:
-#             # Fallback: no docs found
-#             answer = llm.predict(message)
-
-#         return {"response": answer}
-
-#     except Exception as e:
-#         print("❌ ERROR:", str(e))
-#         return JSONResponse(status_code=500, content={"error": str(e)})
-
-
 
 @app.post("/chat")
 async def chat(request: Request):
@@ -446,37 +164,3 @@ async def chat(request: Request):
 
 
 
-# @app.post("/chat")
-# async def chat(request: Request):
-#     try:
-#         body = await request.json()
-#         message = body.get("message")
-
-#         if not message:
-#             return JSONResponse(status_code=400, content={"error": "Message is required"})
-
-#         # Run RAG chain
-#         result = qa_chain.invoke({
-#             "question": message,
-#             "chat_history": []
-#         })
-
-#         answer = result["answer"]
-#         source_docs = result.get("source_documents", [])
-
-#         # Check if retrieved sources are empty or clearly off-topic
-#         content_combined = " ".join(doc.page_content.lower() for doc in source_docs)
-#         if not source_docs or (message.lower() not in content_combined and len(content_combined) < 20):
-#             print("📉 Fallback to LLM without context")
-#             answer = llm.predict(message)
-
-#         # Debug log for development
-#         print("📥 User:", message)
-#         print("🤖 Answer:", answer)
-#         print("📚 Retrieved Chunks:", [doc.page_content[:150] for doc in source_docs])
-
-#         return {"response": answer}
-
-#     except Exception as e:
-#         print("❌ ERROR:", str(e))
-#         return JSONResponse(status_code=500, content={"error": str(e)})

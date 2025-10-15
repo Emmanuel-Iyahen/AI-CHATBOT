@@ -1,33 +1,4 @@
-# version: "3.8"
-
-# services:
-#   backend:
-#     build:
-#       context: ./backend
-#     ports:
-#       - "8000:8000"
-#     environment:
-#       - OPENAI_API_KEY=${OPENAI_API_KEY}  # Pass your env vars here
-#     volumes:
-#       - ./backend:/app  # Optional: mount for live reload during development
-
-#   frontend:
-#     build:
-#       context: ./frontend
-#     ports:
-#       - "3000:80"
-
-
-# services:
-#   backend:
-#     build:
-#       context: ./backend
-#     environment:
-#        - OPENAI_API_KEY=${OPENAI_API_KEY}  # Pass your env vars here
-#   frontend:
-#     build:
-#       context: ./frontend
-
+version: "3.8"
 
 services:
   backend:

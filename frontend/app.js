@@ -1,72 +1,3 @@
-// async function sendMessage() {
-//   const input = document.getElementById("user-input");
-//   const message = input.value;
-//   if (!message.trim()) return;
-
-//   appendMessage("user", message);
-//   input.value = "";
-
-//   try {
-//     const res = await fetch("http://localhost:8000/chat", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify({ message })
-//     });
-
-//     const data = await res.json();
-//     appendMessage("bot", data.response);
-//   } catch (err) {
-//     appendMessage("bot", "⚠️ Error: Could not reach server.");
-//   }
-// }
-
-// function appendMessage(sender, text) {
-//   const chatBox = document.getElementById("chat-box");
-//   const p = document.createElement("p");
-//   p.innerHTML = `<strong>${sender}:</strong> ${text}`;
-//   chatBox.appendChild(p);
-//   chatBox.scrollTop = chatBox.scrollHeight;
-// }
-
-
-
-
-// async function sendMessage() {
-//   const input = document.getElementById("user-input");
-//   const message = input.value;
-//   if (!message.trim()) return;
-
-//   appendMessage("user", message);
-//   input.value = "";
-
-//   try {
-//     const res = await fetch("http://localhost:8000/chat", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify({ message })
-//     });
-
-//     const data = await res.json();
-//     appendMessage("bot", data.response);
-//   } catch (err) {
-//     appendMessage("bot", "⚠️ Error: Could not reach server.");
-//   }
-// }
-
-// function appendMessage(sender, text) {
-//   const chatBox = document.getElementById("chat-box");
-//   const msgDiv = document.createElement("div");
-//   msgDiv.className = sender === "user" ? "user-message" : "bot-message";
-//   msgDiv.textContent = text;
-//   chatBox.appendChild(msgDiv);
-//   chatBox.scrollTop = chatBox.scrollHeight;
-// }
-
-
 
 
 
@@ -82,7 +13,7 @@ async function sendMessage() {
   const loadingId = appendMessage("bot", "typing...", true);
 
   try {
-    const res = await fetch("http://localhost:8000/chat", {
+    const res = await fetch("http://54.226.190.230:8000/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -97,21 +28,6 @@ async function sendMessage() {
   }
 }
 
-// function appendMessage(sender, text, isLoading = false) {
-//   const chatBox = document.getElementById("chat-box");
-//   const msgDiv = document.createElement("div");
-//   const id = `msg-${Date.now()}`;
-
-//   msgDiv.className = sender === "user" ? "user-message" : "bot-message";
-//   msgDiv.id = id;
-//   // msgDiv.innerHTML = isLoading ? `<span class="typing-dots"></span>` : text;
-//   msgDiv.innerHTML = isLoading ? `<span class="typing-dots"><span></span></span>` : text;
-
-//   chatBox.appendChild(msgDiv);
-//   chatBox.scrollTop = chatBox.scrollHeight;
-
-//   return id; // return ID for future update
-// }
 
 function appendMessage(sender, text, isLoading = false) {
   const chatBox = document.getElementById("chat-box");
