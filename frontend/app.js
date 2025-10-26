@@ -13,7 +13,7 @@ async function sendMessage() {
   const loadingId = appendMessage("bot", "typing...", true);
 
   try {
-    const res = await fetch("http://54.226.190.230:8000/chat", {
+    const res = await fetch("/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
