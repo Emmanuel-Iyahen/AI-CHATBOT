@@ -14,3 +14,7 @@ services:
       context: ./frontend
     ports:
       - "80:80"  
+    volumes:
+      - ./nginx-temp.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt/live/ai.smartprojects.dev/fullchain.pem:/etc/ssl/certs/fullchain.pem:ro
+      - /etc/letsencrypt/live/ai.smartprojects.dev/privkey.pem:/etc/ssl/certs/privkey.pem:ro
