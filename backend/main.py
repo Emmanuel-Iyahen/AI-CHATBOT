@@ -11,6 +11,9 @@ from rag_chain import qa_chain, update_retriever
 
 app = FastAPI()
 
+from fastapi import APIRouter
+api_router = APIRouter(prefix="/api")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Adjust this for production!
