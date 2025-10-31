@@ -14,5 +14,7 @@ services:
       context: ./frontend
     ports:
       - "80:80"  
+      - "443:443"
     volumes:
-      - /etc/letsencrypt/live/ai.smartprojects.dev/:/etc/ssl/certs/:ro
+      - /etc/letsencrypt/live/ai.smartprojects.dev/:/etc/ssl/certs/live/ai.smartprojects.dev/:ro
+      - /etc/letsencrypt/archive/ai.smartprojects.dev/:/etc/ssl/certs/archive/ai.smartprojects.dev/:ro
