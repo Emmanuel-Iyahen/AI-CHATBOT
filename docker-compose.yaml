@@ -1,3 +1,31 @@
+# version: "3.8"
+
+# services:
+#   backend:
+#     build:
+#       context: ./backend
+#     environment:
+#       - OPENAI_API_KEY=${OPENAI_API_KEY}
+#     ports:
+#       - "8000:8000"      # Map host 8000 to container 8000
+
+#   frontend:
+#     build:
+#       context: ./frontend
+#     ports:
+#       - "80:80"  
+#       - "443:443"
+#     volumes:
+#       - /etc/letsencrypt/live/ai.smartprojects.dev/:/etc/ssl/certs/live/ai.smartprojects.dev/:ro
+#       - /etc/letsencrypt/archive/ai.smartprojects.dev/:/etc/ssl/certs/archive/ai.smartprojects.dev/:ro
+
+# networks:
+#   app-network:
+#     driver: bridge
+
+
+
+
 version: "3.8"
 
 services:
@@ -7,7 +35,9 @@ services:
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
     ports:
-      - "8000:8000"      # Map host 8000 to container 8000
+      - "8000:8000" 
+    networks:
+      - app-network
 
   frontend:
     build:
@@ -18,3 +48,11 @@ services:
     volumes:
       - /etc/letsencrypt/live/ai.smartprojects.dev/:/etc/ssl/certs/live/ai.smartprojects.dev/:ro
       - /etc/letsencrypt/archive/ai.smartprojects.dev/:/etc/ssl/certs/archive/ai.smartprojects.dev/:ro
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
